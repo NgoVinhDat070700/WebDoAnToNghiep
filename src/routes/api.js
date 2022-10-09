@@ -1,0 +1,11 @@
+// Đây là nơi khởi tạo các đường dẫn API
+export const API_USER_LOGIN = 'users/login'
+export const API_LIST_PRODUCT = 'products'
+export const API_LIST_PRODUCT_BY_CATE = 'products/search_category?category_id='
+export const API_LIST_CATEGORY = 'category'
+export const API_UPLOAD_IMAGE = 'upload'
+export const API_REFRESH_TOKEN='users/refresh'
+export const API_USER_INFO = 'users/find'
+export const API_LIST_USER = 'users'
+export const API_PAYMENT = 'order'
+export const API_NEWS = 'news'

@@ -1,0 +1,23 @@
+{
+    "arrowParens": "always",
+    "endOfLine": "lf",
+    "embeddedLanguageFormatting": "auto",
+    "htmlWhitespaceSensitivity": "css",
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "semi": false,
+    "jsxSingleQuote": true,
+    "useTabs": false,
+    "tabWidth": 2,
+    "vueIndentScriptAndStyle": false,
+    "importOrder": [
+      "^(react/(.*)$)|^(react$)",
+      "^@mui/(.*)$",
+      "<THIRD_PARTY_MODULES>",
+      "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
+  }
+  

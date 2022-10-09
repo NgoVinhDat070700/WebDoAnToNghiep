@@ -1,0 +1,77 @@
+.footer-main{
+    background-color: rgb(39, 36, 36);
+    color: white;
+    margin-top: 50px;
+}
+.footer-container{
+    margin-left: 50px;
+    margin-right: 50px;
+
+}
+.row{
+    display: flex;
+    margin: auto;
+}
+.footer-top-box{
+    flex: 1;
+}
+hr{
+    width: 200px;
+    margin-left: 0px;
+    background-color: greenyellow;
+    color: greenyellow;
+}
+.hr{
+    width: 100%;
+    margin-right: 0px;
+}
+.list-time{
+    margin-left: 0px;
+}
+li{
+    text-decoration: none;
+    list-style-type: none;
+    margin-left:-40px ;
+    margin-top: 10px;
+}
+.form-send{
+    display: flex;
+    align-items: center;
+    margin-left: 0px;
+    padding: 5px;
+    width: 80%;
+}
+.input-email{
+    font-size: 20px;
+    border-radius: 5px ;
+}
+.icon-footer{
+    font-size: 30px;
+}
+.phone,.address{
+    display: flex;
+    align-items: center;
+
+}
+.phone-number,.CS-1{
+    margin-left: 20px;
+}
+.icon-footer{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: black;
+    background-color: white;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    transition: all 0.5s ease;
+}
+.icon-footer:hover{
+    background-color: #e9f5f5;
+    transform: scale(1.1);
+}
+.footer-widget,.footer-link,.contact{
+    flex: 1;
+}
