@@ -10,8 +10,8 @@ import { getUserInfo, isValidToken, setSession } from "./utils/jwt"
 import { useDispatch, useSelector } from "./redux/store"
 import { getUser, resetUser } from "./redux/api/authSlice"
 import Login from "./pages/auth/login"
+import Page404 from "./pages/Page404"
 
-// import axios from "axios"
 
 function App(){
 
@@ -103,6 +103,7 @@ function App(){
             )
           })}
           <Route path='/login' element={<Login />} />
+          <Route path='*' element={<Page404 />} />
         </Routes>
       </div>
       <ToastContainer />

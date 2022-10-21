@@ -6,14 +6,18 @@ import { MenuItem, TextField } from '@mui/material';
 
 SearchByOption.propTypes = {
   options: PropTypes.array,
-  onSort: PropTypes.func
+  setSelectByCategory: PropTypes.func
 };
 
-export default function SearchByOption({ options = [], onSort }) {
+export default function SearchByOption({ options = [], setSelectByCategory }) {
+
+  const handleChangeOption = (e) =>{
+    setSelectByCategory(e.target.value)
+  }
   return (
-    <TextField select sx={{width:200, height:56}} size="small" value="Search By Category" onChange={onSort}>
-      {options.map((option) => (
-        <MenuItem key={option._id} value={option._id}>
+    <TextField select sx={{width:200, height:56}} size="small" defaultValue="" onChange={handleChangeOption}>
+      {options.map((option) => (                                                   
+        <MenuItem key={option._id} value={option._id} >
           {option.namecategory}
         </MenuItem>
       ))}

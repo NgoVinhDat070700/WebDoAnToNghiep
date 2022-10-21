@@ -103,14 +103,14 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
   return (
     <RHFFormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2} px={3} py={3}>
-        <Grid item xs={12} md={12}><Typography sx={{ fontWeight: 'bold' }}>Category</Typography>
+        <Grid item xs={12} md={12}>
           <Stack spacing={1}>
             <Typography sx={{ fontWeight: 'bold' }}>Name Product</Typography>
             <RHFTextField name='nameproduct' />
           </Stack>
 
           <Stack spacing={1}>
-            
+            <Typography sx={{ fontWeight: 'bold' }}>Category</Typography>
             <RHFAutocomplete
               name='category_id'
               options={listCategoryOption}

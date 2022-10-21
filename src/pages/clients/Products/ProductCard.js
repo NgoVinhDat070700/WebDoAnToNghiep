@@ -48,10 +48,11 @@ const CoverImgStyle = styled('img')({
 
 ProductCard.propTypes = {
   product: PropTypes.object.isRequired,
+  handleViewProductDetail: PropTypes.func,
   index: PropTypes.number,
 };
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, handleViewProductDetail }) {
   const navigate = useNavigate()
 
   const { nameproduct, image, price } = product;
@@ -108,6 +109,7 @@ export default function ProductCard({ product }) {
             variant="subtitle2"
             underline="hover"
             component={RouterLink}
+            onClick={handleViewProductDetail}
           >
             {nameproduct}
           </TitleStyle>

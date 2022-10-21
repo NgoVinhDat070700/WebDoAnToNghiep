@@ -18,22 +18,22 @@ export const blogApiSlice = apiWithTag.injectEndpoints({
                 data,
                 method: 'POST'
             }),
-            invalidatesTags: ['Categoies']
+            invalidatesTags: ['Blogs']
         }),
         updateBlog: builder.mutation({
-            query: ({category_id, data})=>({
-                url:`${API_NEWS}/${category_id}`,
-                data,
+            query: ({blogId, dataForm})=>({
+                url:`${API_NEWS}/${blogId}`,
+                data: dataForm,
                 method: 'PUT'
             }),
-            invalidatesTags: ['Categoies']
+            invalidatesTags: ['Blogs']
         }),
         deleteBlog: builder.mutation({
-            query: (category_id) =>({
-                url:`${API_NEWS}/${category_id}`,
+            query: (blog_id) =>({
+                url:`${API_NEWS}/${blog_id}`,
                 method: 'DELETE'
             }),
-            invalidatesTags: ['Categoies']
+            invalidatesTags: ['Blogs']
         })
     })
 })

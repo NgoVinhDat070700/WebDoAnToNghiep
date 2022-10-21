@@ -28,3 +28,11 @@ export const Order_Table = [
     {id:'status', label:'Status'},
     {id:'action', label:'Action'}
 ]
+
+export const Blog_Table = [
+    {id:'title', label:'Title'},
+    {id:'category', label:'Category'},
+    {id:'desc', label:'Description'},
+    {id:'image', label:'Image'},
+    {id:'video', label:'Video'},
+]

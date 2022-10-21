@@ -15,20 +15,18 @@
 .footer-top-box{
     flex: 1;
 }
-hr{
+.footer-widget .hr{
     width: 200px;
     margin-left: 0px;
-    background-color: greenyellow;
-    color: greenyellow;
 }
-.hr{
+.footer-top-box .hr{
     width: 100%;
     margin-right: 0px;
 }
 .list-time{
     margin-left: 0px;
 }
-li{
+.footer-link li{
     text-decoration: none;
     list-style-type: none;
     margin-left:-40px ;

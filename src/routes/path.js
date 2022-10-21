@@ -11,6 +11,7 @@ import User from "@/pages/admin/Users"
 import Cart from "@/pages/clients/Cart"
 import Order from "@/pages/admin/Order"
 import Blog from "@/pages/clients/Blog"
+import BlogAdmin from "@/pages/admin/Blog"
 
 const routersAdmin = [
     {
@@ -24,7 +25,10 @@ const routersAdmin = [
     },
     {
         path:config.routesAdmin.orders,component:Order,layout:LayoutAdmin
-    }
+    },
+    {
+        path:config.routesAdmin.blogs,component:BlogAdmin,layout:LayoutAdmin
+    },
 ]
 
 const routerPublic = [

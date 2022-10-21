@@ -27,14 +27,9 @@ const navConfig = [
     icon: getIcon('eva:file-text-fill'),
   },
   {
-    title: 'login',
-    path: '/login',
-    icon: getIcon('eva:lock-fill'),
-  },
-  {
-    title: 'register',
-    path: '/register',
-    icon: getIcon('eva:person-add-fill'),
+    title: 'Blogs',
+    path: '/admin/blogs',
+    icon: getIcon('uil:blogger-alt'),
   },
   {
     title: 'Not found',
