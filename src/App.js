@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "./redux/store"
 import { getUser, resetUser } from "./redux/api/authSlice"
 import Login from "./pages/auth/login"
 import Page404 from "./pages/Page404"
+import Register from "./pages/auth/register"
 
 
 function App(){
@@ -103,6 +104,7 @@ function App(){
             )
           })}
           <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
           <Route path='*' element={<Page404 />} />
         </Routes>
       </div>

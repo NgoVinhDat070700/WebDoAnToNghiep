@@ -1,5 +1,5 @@
-// Đây là nơi khởi tạo các đường dẫn API
 export const API_USER_LOGIN = 'users/login'
+export const API_USER_REGISTER = 'users/register'
 export const API_LIST_PRODUCT = 'products'
 export const API_LIST_PRODUCT_BY_CATE = 'products/search_category?category_id='
 export const API_LIST_CATEGORY = 'category'

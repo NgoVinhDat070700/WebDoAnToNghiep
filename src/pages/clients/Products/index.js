@@ -2,14 +2,14 @@ import Page from '@/components/Page'
 import Search from '@/components/Search'
 import SearchByOption from '@/components/SearchByOption'
 import { getProductList } from '@/redux/api/cartSlice'
-import { useDispatch, useSelector } from '@/redux/store'
-import { useGetListCategoryQuery } from '@/sections/admin/categories/CategorySlice'
 import { Container, Grid, Stack, Typography } from '@mui/material'
 import { useCallback, useEffect, useState } from 'react'
 import { Pagination } from '@material-ui/lab'
 import ProductCard from './ProductCard'
 import usePagination from '@/hooks/usePagination'
 import ProductDetail from '@/pages/productDetail'
+import { useDispatch, useSelector } from 'react-redux'
+import { useGetListCategoryQuery } from '@/sections/admin/categories/CategorySlice'
 
 function Products() {
   const [selectByCategory, setSelectByCategory] = useState('')
@@ -59,16 +59,15 @@ function Products() {
         </Stack>
 
         <Stack mb={5} direction='row' alignItems='center' justifyContent='space-between'>
-          <SearchByOption options={categories} setSelectByCategory={setSelectByCategory} />
           <Search placeholder='Search products...' />
+          <SearchByOption options={categories} setSelectByCategory={setSelectByCategory} />
         </Stack>
 
         <Grid container spacing={3}>
           {_DATA.currentData().map((product, index) => (
             <ProductCard
-              key={product._id}
+              key={index}
               product={product}
-              index={index}
               selectByCategory={selectByCategory}
               handleViewProductDetail={handleViewProductDetail(product)}
             />

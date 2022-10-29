@@ -12,7 +12,7 @@ import { toast } from 'react-toastify'
 import { useGetListCategoryQuery } from '@/sections/admin/categories/CategorySlice'
 
 const defaultValues = {
-  name: '',
+  nameproduct: '',
   price: 0,
   image: '',
   category_id: '',
@@ -27,6 +27,7 @@ ProductForm.propTypes = {
   updateProduct: PropTypes.func
 }
 function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProduct }) {
+
   const {
     nameproduct = '',
     price = 0,
@@ -46,7 +47,7 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
     try {
       const inputValue = parseInt(inputPrice, 10)
       if (Number.isNaN(inputValue)) {
-        setValue('price', 0)
+        setValue('price', '')
         return
       }
       setValue('price', inputValue)
@@ -62,7 +63,7 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
     setValue('price', price)
     setValue('image', image)
     setValue('desc', desc)
-    setValue('category_id', { label: namecategory, value: _id })
+    setValue('category_id', { label: namecategory, id: _id })
   }, [setValue, nameproduct, namecategory, productId, _id, image, desc, price])
 
   const { data } = useGetListCategoryQuery()
@@ -78,7 +79,7 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
   
   const onChangePrice = (e) =>{
     const value = e.target.value
-    setValue('price', value || 0)
+    setValue('price', value || '')
   }
   const onSubmit = async (data) => {
     const {category_id = {}} = data
@@ -140,7 +141,7 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
 
           <Stack spacing={1}>
             <Typography sx={{ fontWeight: 'bold' }}>Price</Typography>
-            <RHFTextField name='price' onChange={onChangePrice} />
+            <RHFTextField name='price' onChange={onChangePrice}/>
           </Stack>
 
           <Stack spacing={1}>

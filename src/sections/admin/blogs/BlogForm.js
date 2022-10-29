@@ -47,7 +47,7 @@ function BlogForm({ isOpen = false, onClose, detailBlog, isEdit, createBlog, upd
     setValue('video', video)
     setValue('image', image)
     setValue('desc', desc)
-    setValue('category_id', { label: namecategory, value: _id })
+    setValue('category_id', { label: namecategory, id: _id })
   }, [setValue, title, namecategory, blogId, _id, image, desc, video])
   
   const { data } = useGetListCategoryQuery()

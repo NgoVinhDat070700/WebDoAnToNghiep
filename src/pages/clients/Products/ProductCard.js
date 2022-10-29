@@ -44,6 +44,12 @@ const CoverImgStyle = styled('img')({
   position: 'absolute',
 });
 
+const ButtonAddToCart = styled(Button)({
+  width: '100%',
+  height: '100%',
+  backgroundColor:'#FFCC66',
+  color: '#fff'
+})
 // ----------------------------------------------------------------------
 
 ProductCard.propTypes = {
@@ -113,7 +119,7 @@ export default function ProductCard({ product, handleViewProductDetail }) {
           >
             {nameproduct}
           </TitleStyle>
-          <Button sx={{backgroundColor:'#FFCC66'}} variant="contained" onClick={()=>handleAddToCart({id:product._id,nameproduct:product.nameproduct,price:product.price,image:product.image,quatity:+1})}>Add To Cart<Iconify icon={'bytesize:cart'} sx={{width:16, height:16}} /></Button>
+          <ButtonAddToCart variant='contained' onClick={()=>handleAddToCart({id:product._id,nameproduct:product.nameproduct,price:product.price,image:product.image,quatity:+1})}>Add To Cart<Iconify icon={'bytesize:cart'} sx={{width:16, height:16}} /></ButtonAddToCart>
         </CardContent>
       </Card>
     </Grid>
