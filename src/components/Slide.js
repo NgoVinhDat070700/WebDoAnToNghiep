@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Iconify from './Iconify'
 import '@/assets/css/slider.css'
+import { Link } from 'react-router-dom'
 const Slider = ()=>{
     const slide_items=[
         {
@@ -45,7 +46,7 @@ const Slider = ()=>{
                         <div className="slide-imginfo">
                             <h2>{item.title}</h2>
                             <p>{item.description}</p>
-                            <button>Click</button>
+                            <Link to='/products'><button>Click</button></Link>
                         </div>
                     </div> )}
                 </div>

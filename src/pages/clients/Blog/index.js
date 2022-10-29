@@ -1,22 +1,28 @@
 import Page from '@/components/Page'
 import Search from '@/components/Search'
-import SearchByOption from '@/components/SearchByOption'
+// import SearchByOption from '@/components/SearchByOption'
 import usePagination from '@/hooks/usePagination'
 import { getProductList } from '@/redux/api/cartSlice'
-import { useDispatch } from '@/redux/store'
+import { useDispatch } from 'react-redux'
 import { useGetListBlogQuery } from '@/sections/admin/blogs/blogSlice'
-import { useGetListCategoryQuery } from '@/sections/admin/categories/CategorySlice'
+// import { useGetListCategoryQuery } from '@/sections/admin/categories/CategorySlice'
 import { Pagination } from '@material-ui/lab'
 import { Container, Grid, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import BlogPostCard from './BlogPostCard'
+import { useDebounce } from '@/hooks/useDebounce'
 
 function Blog() {
-    const { data: dataBlog } = useGetListBlogQuery()
+  const [filterName, setFilterName] = useState('')
+  const title = useDebounce(filterName, 1000)
+    
+    const { data: dataBlog } = useGetListBlogQuery({title})
     const { allNews = []} = dataBlog || {}
+
+    
     const dispatch = useDispatch()
-    const { data } = useGetListCategoryQuery()
-    const { categories = []} = data || {}
+    // const { data } = useGetListCategoryQuery()
+    // const { categories = []} = data || {}
     
     useEffect(()=>{
       dispatch(getProductList())
@@ -32,6 +38,9 @@ function Blog() {
     setPage(p)
     _DATA.jump(p)
   }
+  const handleFilterByName = (e) => {
+    setFilterName(e.target.value)
+  }
   return (
     <Page title='Blog'>
       <Container>
@@ -42,8 +51,8 @@ function Blog() {
         </Stack>
 
         <Stack mb={5} direction='row' alignItems='center' justifyContent='space-between'>
-          <SearchByOption options={categories} />
-          <Search placeholder='Search Blog...' />
+          <Search placeholder='Search Blog...' filterName={filterName} onFilterName={handleFilterByName}/>
+          {/* <SearchByOption options={categories} /> */}
         </Stack>
 
         <Grid container spacing={3}>

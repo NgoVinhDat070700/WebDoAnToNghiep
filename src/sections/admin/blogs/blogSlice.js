@@ -12,6 +12,12 @@ export const blogApiSlice = apiWithTag.injectEndpoints({
             }),
             providesTags: ['Blogs']
         }),
+        getBlogById: builder.query({
+            query: (id) =>({
+                url: `${API_NEWS}/find/${id}`,
+                method: 'GET'
+            }),
+        }),
         createBlog: builder.mutation({
             query: (data) =>({
                 url:API_NEWS,
@@ -38,4 +44,4 @@ export const blogApiSlice = apiWithTag.injectEndpoints({
     })
 })
 
-export const { useGetListBlogQuery, useCreateBlogMutation, useUpdateBlogMutation, useDeleteBlogMutation   } = blogApiSlice
+export const { useGetListBlogQuery, useCreateBlogMutation, useUpdateBlogMutation, useDeleteBlogMutation, useGetBlogByIdQuery  } = blogApiSlice

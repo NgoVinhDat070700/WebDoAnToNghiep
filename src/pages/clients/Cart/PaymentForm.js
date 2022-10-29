@@ -15,11 +15,13 @@ import RHFFormProvider from '@/components/hook-form/RHFFormProvider'
 import RHFTextField from '@/components/hook-form/RHFTextField'
 import { useForm } from 'react-hook-form'
 import { LoadingButton } from '@mui/lab'
-import { useDispatch, useSelector } from '@/redux/store'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { paymentOrder } from '@/redux/api/paymentSlice'
 import { resetCart } from '@/redux/api/cartSlice'
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
@@ -38,11 +40,22 @@ function PaymentForm({ isOpen, handleCloseFormPayment, qty }) {
     phone:""
   }
 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+  const PaymentSchema = Yup.object().shape({
+    fullname: Yup.string().required('*Fullname is required'),
+    email: Yup.string().email('*Email must be a valid email address').required('Email is required'),
+    address: Yup.string().required('*Address is required'),
+    phone: Yup.string()
+    .required("*Phone is required")
+    .matches(phoneRegExp, '*Phone number is not valid')
+    .min(9)
+    .max(10),
+  });
   const { user } = useSelector((state)=>state.auth)
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
-  const methods = useForm({ defaultValues })
+  const methods = useForm({ resolver: yupResolver(PaymentSchema),defaultValues })
   const { handleSubmit } = methods
 
   const onSubmit = async (data) =>{

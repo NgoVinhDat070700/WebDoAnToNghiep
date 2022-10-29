@@ -12,6 +12,7 @@ import Cart from "@/pages/clients/Cart"
 import Order from "@/pages/admin/Order"
 import Blog from "@/pages/clients/Blog"
 import BlogAdmin from "@/pages/admin/Blog"
+import BlogDetail from "@/pages/clients/Blog/BlogDetail"
 
 const routersAdmin = [
     {
@@ -44,5 +45,8 @@ const routerPublic = [
     {
         path:config.routesClient.blog,component:Blog,layout:LayoutClient
     },
+    {
+        path:config.routesClient.blogId,component:BlogDetail,layout:LayoutClient
+    }
 ]
 export {routerPublic, routersAdmin} 

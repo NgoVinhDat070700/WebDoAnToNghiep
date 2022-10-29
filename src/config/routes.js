@@ -2,7 +2,8 @@ const routesClient = {
     home:'/',
     products:'/products',
     cart:'/Cart',
-    blog:'/Blogs'
+    blog:'/Blogs',
+    blogId:'/Blogs/:_id'
 }
 const routesAdmin = {
     dashboard:'/dashboard',
