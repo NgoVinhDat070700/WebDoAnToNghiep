@@ -13,20 +13,22 @@ import RHFTextField from '@/components/hook-form/RHFTextField';
 import RHFFormProvider from '@/components/hook-form/RHFFormProvider';
 import { RHFCheckbox } from '@/components/hook-form/RHFCheckbox';
 import { useDispatch } from '@/redux/store';
-import { authLogin } from '@/redux/api/authSlice';
+import { getUser, setAuthtokenCredential, setEmailVerifiedValue } from '@/redux/api/authSlice';
 import { toast } from 'react-toastify';
-import { setRefreshToken, setRememberMe, setSession } from '@/utils/jwt';
+import { setRefreshToken } from '@/utils/jwt';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/config/firebase-config';
+import { useCreateOrUpdateUserMutation } from '@/redux/api/authQuery';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const navigate = useNavigate();
-
   const [showPassword, setShowPassword] = useState(false);
-
+  const [createOrUpdateUser] = useCreateOrUpdateUserMutation();
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    email: Yup.string().email('Email phải là một địa chỉ email hợp lệ').required('Yêu cầu nhập email'),
+    password: Yup.string().required('Yêu cầu nhập password'),
   });
 
   const defaultValues = {
@@ -45,28 +47,38 @@ export default function LoginForm() {
     formState: { isSubmitting },
   } = methods;
   const dispatch = useDispatch()
+  const roleBasedRedirect = (role) => {
+    if (role === "admin") {
+      navigate("/dashboard", { replace: true });
+    } else {
+      navigate("/", { replace: true });
+    }
+  };
+  const onSubmit = async ({email = '', password = ''}) => {
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password)
+      if(!user.emailVerified) throw new Error(`${user.email} hasn't verified yet!`);
+      const idTokenResult = await user.getIdTokenResult();
+      const res = await createOrUpdateUser(idTokenResult.token).unwrap();
 
-  const onSubmit = async ({email = '', password = '',remember = ''}) => {
-    const formData = {
-      email,password
-    }
-    const result = await dispatch(authLogin(formData))
-    if(authLogin.fulfilled.match(result)){
-      toast.success('Login success!')
-      setRememberMe(remember)
-      setRefreshToken(result.payload.token.refreshToken)
-      setSession(result.payload.token.accessToken)
-      result.payload?.isAdmin ? navigate('/dashboard', { replace: true }) : navigate('/', { replace: true });
-    }
-    else{
-      toast.error('Login Failed!')
+      if (["deleted", "inactive"].includes(res.status)) {
+        throw new Error(`${res.email} hiện đang khoá!`);
+      } else {
+        dispatch(setRefreshToken(user.refreshToken));
+        dispatch(setAuthtokenCredential(idTokenResult.token));
+        dispatch(getUser(res));
+        dispatch(setEmailVerifiedValue(""));
+        roleBasedRedirect(res?.role);
+      }
+    } catch (error) {
+      toast.error('Đăng nhập thất bại!')
     }
   };
 
   return (
     <RHFFormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email" label="Email" />
 
         <RHFTextField
           name="password"
@@ -87,12 +99,12 @@ export default function LoginForm() {
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
         <RHFCheckbox name="remember" label="Remember me" />
         <Link variant="subtitle2" underline="hover">
-          Forgot password?
+          Quên mật khẩu?
         </Link>
       </Stack>
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-        Login
+        Đăng nhập
       </LoadingButton>
     </RHFFormProvider>
   );

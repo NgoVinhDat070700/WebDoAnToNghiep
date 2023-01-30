@@ -4,7 +4,7 @@ import numeral from 'numeral';
 // ----------------------------------------------------------------------
 
 export function fCurrency(number) {
-  return numeral(number).format(Number.isInteger(number) ? '$0,0' : '$0,0.00');
+  return numeral(number).format(Number.isInteger(number) ? '0,0' : '0,0.00');
 }
 
 export function fPercent(number) {
@@ -22,3 +22,6 @@ export function fShortenNumber(number) {
 export function fData(number) {
   return numeral(number).format('0.0 b');
 }
+
+export const getNameByValue = (value = "", arr = []) =>
+  arr.find((item) => item.value === value)?.name || null;

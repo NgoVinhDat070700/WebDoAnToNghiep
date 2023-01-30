@@ -90,12 +90,12 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
         
         await updateProduct({productId, dataForm}).unwrap()
         onClose()
-        toast.success('Update Success!')
+        toast.success('Sửa thành công!')
       }
       else {
         await createProduct(dataForm).unwrap()
         onClose()
-        toast.success('Create Success!')
+        toast.success('Thêm thành công!')
       }
     } catch (error) {
       toast.error(`${error.message}`)
@@ -106,12 +106,12 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
       <Grid container spacing={2} px={3} py={3}>
         <Grid item xs={12} md={12}>
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Name Product</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>Tên sản phẩm</Typography>
             <RHFTextField name='nameproduct' />
           </Stack>
 
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Category</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>Loại</Typography>
             <RHFAutocomplete
               name='category_id'
               options={listCategoryOption}
@@ -140,17 +140,17 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
           </Stack>
 
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Price</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>Giá</Typography>
             <RHFTextField name='price' onChange={onChangePrice}/>
           </Stack>
 
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Image</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>Ảnh</Typography>
             <UploadImage label='File Upload' name='image' setValue={setValue} />
           </Stack>
 
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Description</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>Mô tả</Typography>
             <RHFTextField multiline rows={3} name='desc' />
           </Stack>
         </Grid>
@@ -163,11 +163,11 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
             variant='contained'
            
           >
-            Save
+            Lưu
           </LoadingButton>
 
           <Button variant='outlined' color='inherit' onClick={onClose} >
-            Cancel
+            Thoát
           </Button>
         </DialogActions>
       </Grid>

@@ -2,7 +2,6 @@
 // Đây là nơi lấy gọi các hàm call Api
 import { DOMAIN_SERVER_API } from '@/config'
 import axios from 'axios'
-import { handleRefreshToken } from './jwt'
 
 const axiosInstance = axios.create({
   baseURL: DOMAIN_SERVER_API,
@@ -16,7 +15,6 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response.status === 401) {
-      handleRefreshToken()
       return
     }
     return Promise.reject(

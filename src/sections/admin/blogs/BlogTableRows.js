@@ -27,13 +27,13 @@ function BlogTableRows({ row = {}, index, handleOpenModal, handleDeleteBlog }) {
       </TableCell>
       
       <TableCell>
-        <Tooltip title='Edit' onClick={handleOpenModal}>
+        <Tooltip title='Sửa' onClick={handleOpenModal}>
           <IconButton>
             <Iconify icon={'akar-icons:edit'} />
           </IconButton>
         </Tooltip>
 
-        <Tooltip title='Delete' onClick={handleDeleteBlog}>
+        <Tooltip title='Xóa' onClick={handleDeleteBlog}>
           <IconButton >
             <Iconify icon={'ant-design:delete-filled'} />
           </IconButton>

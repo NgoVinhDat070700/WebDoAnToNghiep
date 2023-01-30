@@ -3,15 +3,17 @@ const routesClient = {
     products:'/products',
     cart:'/Cart',
     blog:'/Blogs',
-    blogId:'/Blogs/:_id'
+    blogId:'/Blogs/:_id',
+    verifiCation:'/verification/*'
 }
 const routesAdmin = {
-    dashboard:'/dashboard',
+    dashboard:'/admin/dashboard',
     products:'/admin/products',
     category:'/admin/categories',
     user:'/admin/users',
     blogs:'/admin/blogs',
-    orders:'/admin/orders'
+    orders:'/admin/orders',
+    pageNotFound:'*'
 
 }
 export {routesClient, routesAdmin}

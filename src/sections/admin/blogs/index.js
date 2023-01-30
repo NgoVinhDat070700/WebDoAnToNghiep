@@ -30,6 +30,7 @@ function BlogTable(props, ref) {
   const { data, isLoading, isFetching } = useGetListBlogQuery({
     page: page + 1,
     pageSize: rowsPerPage,
+    
   })
   const handleFilterByName = (e) => {
     setFilterName(e.target.value)
@@ -85,7 +86,7 @@ function BlogTable(props, ref) {
   )
   return (
     <Card>
-      <Search filterName={filterName} onFilterName={handleFilterByName} placeholder='Search Blogs...' />
+      <Search filterName={filterName} onFilterName={handleFilterByName} placeholder='Tìm kiếm Blog hướng dẫn...' />
       <TableBasic
         columns={columns}
         rows={allNews}

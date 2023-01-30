@@ -13,16 +13,16 @@ export const UserApiSlice = apiWithTag.injectEndpoints({
       providesTags: ['Users'],
     }),
     updateUser: builder.mutation({
-      query: ({ USER_id, data }) => ({
-        url: `${API_LIST_USER}/${USER_id}`,
-        data,
+      query: ({ user_id, dataResult }) => ({
+        url: `${API_LIST_USER}/${user_id}`,
+        data:{role:dataResult},
         method: 'PUT',
       }),
       invalidatesTags: ['Users'],
     }),
     deleteUser: builder.mutation({
-      query: (USER_id) => ({
-        url: `${API_LIST_USER}/${USER_id}`,
+      query: (user_id) => ({
+        url: `${API_LIST_USER}/${user_id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Users'],

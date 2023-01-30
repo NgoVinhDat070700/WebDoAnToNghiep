@@ -6,9 +6,9 @@ import Page from "@/components/Page";
 import useResponsive from "@/hooks/useResponsive";
 import AuthSocial from "@/sections/auth/AuthSocial";
 import LoginForm from "@/sections/auth/login/LoginForm";
-
 import { Card, Container, styled, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import {useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -55,9 +55,12 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Login() {
   const smUp = useResponsive('up', 'sm');
-
+  const navigate = useNavigate()
   const mdUp = useResponsive('up', 'md');
-
+  const { user } = useSelector((state)=>state.auth)
+  if(user && Object.keys(user).length !== 0 && user?.role === 'admin'){
+    navigate('/admin/dashboard')
+  }
   return (
     <Page title="Login">
       <RootStyle>
@@ -65,9 +68,9 @@ export default function Login() {
 
           {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Don’t have an account? {''}
+              Bạn chưa có tài khoản? {''}
               <Link variant="subtitle2" to="/register">
-                Get started
+                Bắt đầu
               </Link>
             </Typography>
           )}
@@ -76,7 +79,7 @@ export default function Login() {
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
+            Xin chào, chào mừng bạn trở lại
             </Typography>
             <img src="/static/illustrations/illustration_login.png" alt="login" />
           </SectionStyle>
@@ -85,10 +88,10 @@ export default function Login() {
         <Container maxWidth="sm">
           <ContentStyle>
             <Typography variant="h4" gutterBottom>
-              Sign in to Fetch Food
+              Đăng nhập vào Fetch Food
             </Typography>
 
-            <Typography sx={{ color: 'text.secondary', mb: 5 }}>Enter your details below.</Typography>
+            <Typography sx={{ color: 'text.secondary', mb: 5 }}>Nhập thông tin chi tiết của bạn dưới đây.</Typography>
 
             <AuthSocial />
 
@@ -96,9 +99,9 @@ export default function Login() {
 
             {!smUp && (
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                Don’t have an account?{' '}
+                Bạn chưa có tài khoản?{' '}
                 <Link variant="subtitle2"  to="/register">
-                  Get started
+                  Bắt đầu
                 </Link>
               </Typography>
             )}

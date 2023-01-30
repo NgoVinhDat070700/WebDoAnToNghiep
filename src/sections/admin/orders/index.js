@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 import React, { useCallback, useRef, useState } from 'react'
 import TableBasic from '@/components/TableBasic'
 
@@ -13,7 +15,11 @@ import OrderConfirmDialog from './OrderConfirmDialog'
 import OrderTableCollapse from './OrderTableCollapse'
 import OrderTableRows from './OrderTableRow'
 
-function OrderTable(OrderRef) {
+OrderTable.propTypes = {
+  OrderRef: PropTypes.any
+}
+
+function OrderTable({OrderRef}) {
   const confirmDialogRef = useRef()
 
   const [filterName, setFilterName] = useState('');
@@ -40,12 +46,12 @@ function OrderTable(OrderRef) {
     OrderRef?.current?.handleEditOrder(row)
 },[OrderRef])
   const CompTableRows = useCallback((row,index)=>
-    isMobile ? (<OrderTableCollapse row={row} key={index} handleDeleteOrder={handleDeleteOrder(row)} handleEditOrder={handleEditOrder} />)
-    :(<OrderTableRows row={row} key={index} handleDeleteOrder={handleDeleteOrder(row)} handleEditOrder={handleEditOrder}   />)
+    isMobile ? (<OrderTableCollapse row={row} key={index} handleDeleteOrder={handleDeleteOrder(row)} handleEditOrder={handleEditOrder(row)} />)
+    :(<OrderTableRows row={row} key={index} handleDeleteOrder={handleDeleteOrder(row)} handleEditOrder={handleEditOrder(row)}   />)
   ,[isMobile,handleDeleteOrder,handleEditOrder])
   return (
     <Card>
-      <Search filterName={filterName} onFilterName={handleFilterByName} placeholder="Search products..."/>
+      <Search filterName={filterName} onFilterName={handleFilterByName} placeholder="Tìm kiếm theo số điện thoại..."/>
       <TableBasic
         columns={columns}
         rows={orders}

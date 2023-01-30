@@ -5,10 +5,41 @@ const config = {
 }
 export default config
 
-export const DOMAIN_SERVER_API = 'http://localhost:5000/api/'
+export const DOMAIN_SERVER_API = 'https://fetchfood-api.onrender.com/api/'
 
-export const rowsPerPageOptions = [5,10,15]
+export const rowsPerPageOptions = [5,10]
 export const defaultPagination = rowsPerPageOptions[0]
 
-export const URL_IMAGE = 'http://localhost:5000/uploads'
+export const URL_IMAGE = 'https://fetchfood-api.onrender.com/uploads'
+
+export const dateFormat = "DD-MM-YYYY";
+
+export const CONSTANT = {
+    ORDER_STATUSES: [
+      {
+        value: "PROCESSING",
+        name: "Đơn đang được xử lý",
+      },
+      {
+        value: "CANCELLING",
+        name: "Đang hủy đơn",
+      },
+      {
+        value: "PACKED",
+        name: "Đã đóng gói",
+      },
+      {
+        value: "DELIVERING",
+        name: "Đang giao hàng",
+      },
+      {
+        value: "DELIVERED",
+        name: "Đã giao hàng",
+      },
+      {
+        value: "CANCELLED",
+        name: "Đã hủy",
+      },
+    ],
+  };
 

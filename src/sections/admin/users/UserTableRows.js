@@ -1,4 +1,5 @@
 import Iconify from '@/components/Iconify'
+import Label from '@/components/Label'
 import { IconButton, TableCell, TableRow, Tooltip } from '@mui/material'
 import PropTypes from 'prop-types'
 
@@ -10,7 +11,7 @@ UserTableRows.propTypes = {
 }
 function UserTableRows({ row = {}, index, handleDeleteUser, handleEditUser }) {
   
-  const { username = '', email = '', isAdmin = false } = row
+  const { username = '', email = '', role = '' } = row
 
   return (
     <TableRow hover tabIndex={index} key={index}>
@@ -19,16 +20,16 @@ function UserTableRows({ row = {}, index, handleDeleteUser, handleEditUser }) {
         {email}
       </TableCell>
         <TableCell>
-            {isAdmin ? "Admin" : "User"}
+            <Label color={role==='admin'?'primary':'secondary'}>{role}</Label>
         </TableCell>
       <TableCell>
-        <Tooltip title='Edit' onClick={handleEditUser} >
+        <Tooltip title='Sửa' onClick={handleEditUser} >
           <IconButton>
             <Iconify icon={'akar-icons:edit'} />
           </IconButton>
         </Tooltip>
 
-        <Tooltip title='Delete' onClick={handleDeleteUser} >
+        <Tooltip title='Xóa' onClick={handleDeleteUser} >
           <IconButton >
             <Iconify icon={'ant-design:delete-filled'} />
           </IconButton>

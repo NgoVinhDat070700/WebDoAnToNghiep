@@ -10,7 +10,7 @@ function BlogsAdmin() {
     blogsRef.current.handleAddBlog()
   },[])
   return (
-    <Page title='Blogs'>
+    <Page title='Blogs hướng dẫn'>
       <Container>
         <Stack
           direction='row'
@@ -19,7 +19,7 @@ function BlogsAdmin() {
           mb={5}
         >
           <Typography variant='h4' gutterBottom>
-            List Blogs
+            Danh sách blogs hướng dẫn
           </Typography>
 
           <Button
@@ -27,7 +27,7 @@ function BlogsAdmin() {
             startIcon={<Iconify icon='eva:plus-fill' />}
             onClick={handleAddBlog}
           >
-            New Blogs
+            Thêm blog
           </Button>
           
         </Stack>

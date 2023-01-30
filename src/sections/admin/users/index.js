@@ -41,7 +41,7 @@ function UserTable( props, ref ) {
 
     return ( 
         <Card>
-            <Search placeholder="Search User..."/>
+            <Search placeholder="Tìm kiếm tài khoản..."/>
             <TableBasic 
             columns={columns}
             rows={users}

@@ -46,13 +46,13 @@ function ProductTableCollapse({ row, handleOpenModal, handleDeleteProduct  }) {
             <Table size='small' aria-label='purchases'>
               <TableBody>
                 <TableRow>
-                  <TableCell>Price</TableCell>
+                  <TableCell>Giá</TableCell>
                   <TableCell>
                     <Typography>{price}</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Image</TableCell>
+                  <TableCell>Ảnh</TableCell>
                   <TableCell>
                     <Image 
                         sx={{
@@ -64,15 +64,15 @@ function ProductTableCollapse({ row, handleOpenModal, handleDeleteProduct  }) {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Action</TableCell>
+                  <TableCell>Hành động</TableCell>
                   <TableCell>
-                    <Tooltip title='Edit' onClick={handleOpenModal}>
+                    <Tooltip title='Sửa' onClick={handleOpenModal}>
                       <IconButton>
                         <Iconify icon={'akar-icons:edit'} />
                       </IconButton>
                     </Tooltip>
 
-                    <Tooltip title='Delete' onClick={handleDeleteProduct}>
+                    <Tooltip title='Xóa' onClick={handleDeleteProduct}>
                       <IconButton>
                         <Iconify icon={'ant-design:delete-filled'} />
                       </IconButton>

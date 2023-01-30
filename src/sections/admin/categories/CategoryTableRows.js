@@ -21,13 +21,13 @@ function CategoryTableRows({ row = {}, index, handleDeleteCategory, handleEditCa
       </TableCell>
       
       <TableCell>
-        <Tooltip title='Edit' onClick={handleEditCategory} >
+        <Tooltip title='Sửa' onClick={handleEditCategory} >
           <IconButton>
             <Iconify icon={'akar-icons:edit'} />
           </IconButton>
         </Tooltip>
 
-        <Tooltip title='Delete' onClick={handleDeleteCategory} >
+        <Tooltip title='Xóa' onClick={handleDeleteCategory} >
           <IconButton >
             <Iconify icon={'ant-design:delete-filled'} />
           </IconButton>

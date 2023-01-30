@@ -84,9 +84,9 @@ function BlogForm({ isOpen = false, onClose, detailBlog, isEdit, createBlog, upd
     <Drawer open={isOpen} onClose={onClose} anchor='right' PaperProps={{ sx: { width: { xs: 1, sm: 480, md: 640 } } }}>
       <Stack spacing={1}>
         {isEdit ? (
-          <Typography variant='h4'>Edit Product</Typography>
+          <Typography variant='h4'>Sửa sản phẩm</Typography>
         ) : (
-          <Typography variant='h4'>Create Product</Typography>
+          <Typography variant='h4'>Thêm sản phẩm</Typography>
         )}
       </Stack>
       <Divider />
@@ -94,12 +94,12 @@ function BlogForm({ isOpen = false, onClose, detailBlog, isEdit, createBlog, upd
         <Grid container spacing={2} px={3} py={3}>
           <Grid item xs={12} md={12}>
             <Stack spacing={1}>
-              <Typography sx={{ fontWeight: 'bold' }}>Title</Typography>
+              <Typography sx={{ fontWeight: 'bold' }}>Tiêu đề</Typography>
               <RHFTextField name='title' />
             </Stack>
 
             <Stack spacing={1}>
-              <Typography sx={{ fontWeight: 'bold' }}>Category</Typography>
+              <Typography sx={{ fontWeight: 'bold' }}>Loại sản phẩm</Typography>
               <RHFAutocomplete
                 name='category_id'
                 options={listCategoryOption}
@@ -132,12 +132,12 @@ function BlogForm({ isOpen = false, onClose, detailBlog, isEdit, createBlog, upd
             </Stack>
 
             <Stack spacing={1}>
-              <Typography sx={{ fontWeight: 'bold' }}>Image</Typography>
+              <Typography sx={{ fontWeight: 'bold' }}>Ảnh</Typography>
               <UploadImage label='File Upload' name='image' setValue={setValue} />
             </Stack>
 
             <Stack spacing={1}>
-              <Typography sx={{ fontWeight: 'bold' }}>Description</Typography>
+              <Typography sx={{ fontWeight: 'bold' }}>Mô tả</Typography>
               <RHFTextField multiline rows={3} name='desc' />
             </Stack>
           </Grid>
@@ -146,11 +146,11 @@ function BlogForm({ isOpen = false, onClose, detailBlog, isEdit, createBlog, upd
         <Grid item xs={12} mt={3}>
           <DialogActions>
             <LoadingButton type='submit' variant='contained'>
-              Save
+              Lưu
             </LoadingButton>
 
             <Button variant='outlined' color='inherit' onClick={onClose}>
-              Cancel
+              Thoát
             </Button>
           </DialogActions>
         </Grid>

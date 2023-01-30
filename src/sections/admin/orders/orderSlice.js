@@ -13,9 +13,9 @@ export const orderApiSlice = apiWithTag.injectEndpoints({
             providesTags: ['Orders']
         }),
         updateOrder: builder.mutation({
-            query: ({order_id, data})=>({
+            query: ({order_id, statusResult})=>({
                 url:`${API_PAYMENT}/${order_id}`,
-                data,
+                data: {orderStatus:statusResult},
                 method: 'PUT'
             }),
             invalidatesTags: ['Orders']

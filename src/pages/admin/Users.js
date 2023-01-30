@@ -7,7 +7,7 @@ import { useRef } from 'react'
 function User() {
   const ref = useRef()
   return (
-    <Page title='Users'>
+    <Page title='Danh sách người dùng'>
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={12} md={8}>

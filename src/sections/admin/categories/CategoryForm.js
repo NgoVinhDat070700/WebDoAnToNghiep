@@ -18,8 +18,8 @@ function CategoryForm(props, ref) {
         status: ''
     }
     const CategoryFormSchema = Yup.object().shape({
-        namecategory: Yup.string().required('Name category is required!'),
-        image: Yup.string().required('Image is required!')
+        namecategory: Yup.string().required('Yêu cầu nhập tên!'),
+        image: Yup.string().required('Yêu cầu chọn ảnh!')
     })
     const methods = useForm({
         resolver: yupResolver(CategoryFormSchema),
@@ -53,12 +53,12 @@ function CategoryForm(props, ref) {
         try {
             if(isNewRecord){
                 await createCategory(data)
-                toast.success('Create Success!')
+                toast.success('Thêm thành công!')
                 handleCancel()
             }
             else{
                 await updateCategory({category_id, data})
-                toast.success('Update Success!')
+                toast.success('Sửa thành công!')
                 handleCancel()
             }
         } catch (error) {
@@ -70,7 +70,7 @@ function CategoryForm(props, ref) {
         <RHFFormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Stack sx={{px : 2, pt : 4}}>
                 <Typography sx={{fontWeight:'bold'}}>
-                    {isNewRecord ? 'Create Category' : 'Update Category'}
+                    {isNewRecord ? 'Thêm loại sản phẩm' : 'Sửa loại sản phẩm'}
                 </Typography>
 
             </Stack>
@@ -78,10 +78,10 @@ function CategoryForm(props, ref) {
                 {!!errors.afterSubmit && (
                 <Alert severity='error'>{errors.afterSubmit.message}</Alert>
                 )}
-                <RHFTextField name='namecategory' label="Name Category" />
-                <UploadImage name='image' label='Image' setValue={setValue} />
+                <RHFTextField name='namecategory' label="Tên loại" />
+                <UploadImage name='image' label='Ảnh' setValue={setValue} />
                 <Stack direction='row' alignItems='center' alignContent='center'>
-                    <Typography>Status:</Typography>
+                    <Typography>Trạng thái:</Typography>
                     <RHFCheckbox name='status' />
                 </Stack>
                 <DialogActions>
@@ -90,11 +90,11 @@ function CategoryForm(props, ref) {
                         variant='contained'
                         loading={isSubmitting}
                     >
-                        Save
+                        Lưu
                     </LoadingButton>
 
                     <Button variant='outlined' color='inherit' onClick={handleCancel} >
-                        Cancel
+                        Thoát
                     </Button>
                 </DialogActions>
             </Stack>

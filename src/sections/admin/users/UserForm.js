@@ -37,17 +37,19 @@ function UserForm(props, ref) {
     handleEditUser: (user) => {
       if (!user) return
 
-      const { username = '', email = '', isAdmin = false } = user || {}
+      const { username = '', email = '', role = '' } = user || {}
       setValue('username', username)
       setValue('email', email),
-      setValue('role', isAdmin)
+      setValue('role', role==='admin' ?true : false)
       setSelectUser(user)
     },
   }))
   const onSubmit = async (data) => {
+    const { role } = data
+    const dataResult = role === true ? 'admin' : 'user' 
     try {
-      await updateUser({ user_id, data })
-      toast.success('Update Success!')
+      await updateUser({ user_id, dataResult})
+      toast.success('Sửa thành công!')
       handleCancel()
     } catch (error) {
       toast.error(`${error}`)
@@ -56,16 +58,16 @@ function UserForm(props, ref) {
   return (
     <RHFFormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack sx={{ px: 2, pt: 4 }}>
-        <Typography sx={{ fontWeight: 'bold' }}>Update User</Typography>
+        <Typography sx={{ fontWeight: 'bold' }}>Sửa quyền</Typography>
       </Stack>
       <Stack spacing={2} px={2} py={2}>
         {!!errors.afterSubmit && (
           <Alert severity='error'>{errors.afterSubmit.message}</Alert>
         )}
-        <RHFTextField name='username' label='User Name' disabled />
-        <RHFTextField name='email' label='Email' disabled />
+        <RHFTextField name='username' label='Tên' disabled />
+        <RHFTextField name='email' label='email' disabled />
         <Stack direction='row' alignItems='center' alignContent='center'>
-          <Typography>Role:</Typography>
+          <Typography>Quyền:</Typography>
           <RHFCheckbox name='role' />
         </Stack>
         <DialogActions>
@@ -74,11 +76,11 @@ function UserForm(props, ref) {
             variant='contained'
             loading={isSubmitting}
           >
-            Save
+            Sửa
           </LoadingButton>
 
           <Button variant='outlined' color='inherit' onClick={handleCancel}>
-            Cancel
+            Thoát
           </Button>
         </DialogActions>
       </Stack>

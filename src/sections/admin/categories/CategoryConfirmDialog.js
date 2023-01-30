@@ -36,13 +36,13 @@ function CategoryConfirmDialog({ confirmDialogRef }) {
     try {
       const data = await deleteCategory(category_id).unwrap()
       if (data?.success) {
-        toast.success("Delete Success!")
+        toast.success("Xóa thành công!")
         onCloseConfirm()
         return
       }
-      toast.error("Delete Failed!")
+      toast.error("Xóa thất bại!")
     } catch (error) {
-        toast.error("Delete Failed!")
+        toast.error("Xóa thất bại!")
     }
   }
 
@@ -65,14 +65,14 @@ function CategoryConfirmDialog({ confirmDialogRef }) {
                 color='inherit'
                 onClick={onCloseConfirm}
               >
-                Cancel
+                Thoát
               </Button>
               <Button
                 variant='contained'
                 color='error'
                 onClick={handleDeleteCategory}
               >
-                Delete
+                Xóa
               </Button>
             </>
           }

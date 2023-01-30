@@ -7,34 +7,34 @@ const getIcon = (name) => <Iconify icon={name} width={22} height={22} />;
 
 const navConfig = [
   {
-    title: 'dashboard',
-    path: '/admin/orders',
+    title: 'Bảng điều khiển',
+    path: '/admin/dashboard',
     icon: getIcon('eva:pie-chart-2-fill'),
   },
   {
-    title: 'user',
+    title: 'Hóa đơn',
+    path: '/admin/orders',
+    icon: getIcon('material-symbols:list-alt-rounded'),
+  },
+  {
+    title: 'Người dùng',
     path: '/admin/users',
     icon: getIcon('eva:people-fill'),
   },
   {
-    title: 'product',
-    path: '/dashboard',
+    title: 'Sản phẩm',
+    path: '/admin/products',
     icon: getIcon('eva:shopping-bag-fill'),
   },
   {
-    title: 'category',
+    title: 'Loại sản phẩm',
     path: '/admin/categories',
     icon: getIcon('eva:file-text-fill'),
   },
   {
-    title: 'Blogs',
+    title: 'Blog hướng dẫn',
     path: '/admin/blogs',
     icon: getIcon('uil:blogger-alt'),
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: getIcon('eva:alert-triangle-fill'),
   },
 ];
 

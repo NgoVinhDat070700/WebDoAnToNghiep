@@ -27,7 +27,7 @@ function Products() {
   }, [dispatch, selectByCategory])
 
   let [page, setPage] = useState(1)
-  const PER_PAGE = 3
+  const PER_PAGE = 4
 
   const count = Math.ceil(products.length / PER_PAGE)
   const _DATA = usePagination(products, PER_PAGE)

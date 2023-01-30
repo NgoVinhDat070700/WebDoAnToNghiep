@@ -49,17 +49,19 @@ export default function RHFAutocomplete({
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState: { error } }) => (
-        <Autocomplete
-          {...field}
-          fullWidth
-          onChange={onChange(field)}
-          options={options}
-          renderTags={renderTags}
-          renderInput={renderInput(field, error)}
-          {...rest}
-        />
-      )}
+      render={({ field, fieldState: { error } }) => {
+        return (
+          <Autocomplete
+            {...field}
+            fullWidth
+            onChange={onChange(field)}
+            options={options}
+            renderTags={renderTags}
+            renderInput={renderInput(field, error)}
+            {...rest}
+          />
+        )
+      }}
     />
   )
 }

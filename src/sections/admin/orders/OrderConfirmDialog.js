@@ -34,10 +34,10 @@ function OrderConfirmDialog({ confirmDialogRef }) {
   const handleDeleteOrder = async () => {
     try {
       await deleteOrder(order_id).unwrap()
-      toast.success('Delete Success!')
+      toast.success('Xóa thành công!')
       onCloseConfirm()
     } catch (error) {
-      toast.error('Delete Failed!')
+      toast.error('Xóa thất bại')
     }
   }
 
@@ -55,10 +55,10 @@ function OrderConfirmDialog({ confirmDialogRef }) {
           actions={
             <>
               <Button variant='outlined' color='inherit' onClick={onCloseConfirm}>
-                Cancel
+                Thoát
               </Button>
               <Button variant='contained' color='error' onClick={handleDeleteOrder}>
-                Delete
+                Xóa
               </Button>
             </>
           }

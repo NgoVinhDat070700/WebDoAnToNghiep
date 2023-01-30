@@ -41,7 +41,7 @@ function CategoryTable({CategoryRef}) {
 
     return ( 
         <Card>
-            <Search placeholder="Search category..."/>
+            <Search placeholder="Tìm kiếm theo tên loại..."/>
             <TableBasic 
             columns={columns}
             rows={categories}

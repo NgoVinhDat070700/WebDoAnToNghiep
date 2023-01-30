@@ -15,6 +15,7 @@ import  MenuLeft  from './MenuLeft';
 
 import Logo from '@/assets/images/fetch_logo_text.png'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const listMenu = [
   {
@@ -33,6 +34,10 @@ const listMenu = [
     title:'Cart',
     path:'/cart'
   },
+  
+]
+
+const listMenuAuth = [
   {
     title:'Login',
     path:'/login'
@@ -43,6 +48,8 @@ const listMenu = [
   },
 ]
 
+
+
 const Header = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const handleOpenUserMenu = (event) => {
@@ -50,6 +57,7 @@ const Header = () => {
   };
   const [openMenuLeft, setOpenMenuLeft] = useState(false)
 
+  const { user } = useSelector((state)=>state.auth)
   const handleCloseMenuLeft = useCallback(() => {
     setOpenMenuLeft(false)
   },[]);
@@ -59,6 +67,8 @@ const Header = () => {
   const handleCloseUserMenu = useCallback(() => {
     setAnchorElUser(null);
   },[]);
+
+  const listMenuMain = user ? listMenu : [...listMenu, ...listMenuAuth]
   return (
     <AppBar position="static" sx={{backgroundColor:'#fff', border:'1px solid black'}}>
       <Container maxWidth="xl">
@@ -119,7 +129,7 @@ const Header = () => {
             FastFood
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {listMenu.map((page) => (
+            {listMenuMain.map((page) => (
               <Button
                 key={page}
                 sx={{ my: 2, color: 'black', display: 'block' }}

@@ -36,13 +36,13 @@ function ProductConfirmDialog({ confirmDialogRef }) {
     try {
       const data = await deleteProduct(ProductId).unwrap()
       if (data?.success) {
-        toast.success("Delete Success!")
+        toast.success("Xóa thành công!")
         onCloseConfirm()
         return
       }
-      toast.error("Delete Failed!")
+      toast.error("Xóa thất bại!")
     } catch (error) {
-        toast.error("Delete Failed!")
+        toast.error("Xóa thất bại!")
     }
   }
 
@@ -65,14 +65,14 @@ function ProductConfirmDialog({ confirmDialogRef }) {
                 color='inherit'
                 onClick={onCloseConfirm}
               >
-                Cancel
+                Thoát
               </Button>
               <Button
                 variant='contained'
                 color='error'
                 onClick={handleDeleteProduct}
               >
-                Delete
+                Xóa
               </Button>
             </>
           }

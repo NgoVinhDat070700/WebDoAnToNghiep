@@ -32,7 +32,7 @@ function CategoryTableCollapse({ row, handleDeleteCategory, handleEditCategory }
             <Table size='small' aria-label='purchases'>
               <TableBody>
                 <TableRow>
-                  <TableCell>Image</TableCell>
+                  <TableCell>Ảnh</TableCell>
                   <TableCell>
                     <Image
                       sx={{
@@ -47,15 +47,15 @@ function CategoryTableCollapse({ row, handleDeleteCategory, handleEditCategory }
                 </TableRow>
 
                 <TableRow>
-                  <TableCell>Action</TableCell>
+                  <TableCell>Hành động</TableCell>
                   <TableCell>
-                    <Tooltip title='Edit' onClick={handleEditCategory}>
+                    <Tooltip title='Sửa' onClick={handleEditCategory}>
                       <IconButton>
                         <Iconify icon={'akar-icons:edit'} />
                       </IconButton>
                     </Tooltip>
 
-                    <Tooltip title='Delete' onClick={handleDeleteCategory}>
+                    <Tooltip title='Xóa' onClick={handleDeleteCategory}>
                       <IconButton>
                         <Iconify icon={'ant-design:delete-filled'} />
                       </IconButton>

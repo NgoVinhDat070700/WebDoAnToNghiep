@@ -18,15 +18,15 @@ function UserTableCollapse({ row = {}, index, handleDeleteUser, handleEditUser }
       <TableCell>{role}</TableCell>
 
       <TableRow>
-        <TableCell>Action</TableCell>
+        <TableCell>Hành động</TableCell>
         <TableCell>
-          <Tooltip title='Edit' onClick={handleDeleteUser}>
+          <Tooltip title='Sửa' onClick={handleDeleteUser}>
             <IconButton>
               <Iconify icon={'akar-icons:edit'} />
             </IconButton>
           </Tooltip>
 
-          <Tooltip title='Delete' onClick={handleEditUser}>
+          <Tooltip title='Xóa' onClick={handleEditUser}>
             <IconButton>
               <Iconify icon={'ant-design:delete-filled'} />
             </IconButton>

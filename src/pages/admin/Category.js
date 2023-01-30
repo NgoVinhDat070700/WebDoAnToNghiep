@@ -7,7 +7,7 @@ import { useRef } from 'react'
 function Category() {
   const ref = useRef()
   return (
-    <Page title='Categories'>
+    <Page title='Loại'>
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={12} md={8}>

@@ -1,71 +1,101 @@
-import { Fragment, useEffect } from "react"
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import LayoutAdmin from "./layouts/LayoutAdmin"
-import LayoutClient from "./layouts/LayoutClient"
+import { Fragment, useEffect, useLayoutEffect } from 'react'
+import { Route, Routes, useNavigate } from 'react-router-dom'
+import LayoutAdmin from './layouts/LayoutAdmin'
 
-import  { routerPublic, routersAdmin } from "./routes/path"
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from "react-toastify"
-import { getUserInfo, isValidToken, setSession } from "./utils/jwt"
-import { useDispatch, useSelector } from "./redux/store"
-import { getUser, resetUser } from "./redux/api/authSlice"
-import Login from "./pages/auth/login"
-import Page404 from "./pages/Page404"
-import Register from "./pages/auth/register"
+import { routersAdmin } from './routes/path'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
+import { useDispatch, useSelector } from './redux/store'
+import { getUser, setAuthtokenCredential, setRefreshToken } from './redux/api/authSlice'
+import Login from './pages/auth/login'
+import Register from './pages/auth/register'
+import { getRedirectResult, onAuthStateChanged, signOut } from 'firebase/auth'
+import { useCreateOrUpdateUserMutation, useCurrentUserMutation } from './redux/api/authQuery'
+import { auth } from './config/firebase-config'
+import { toast } from 'react-toastify'
+import { setSession } from './utils/jwt'
+import Page404 from './pages/Page404'
 
-
-function App(){
-
+function App() {
+  let navigate = useNavigate()
   const dispatch = useDispatch()
+  const { user, authtoken, refreshToken } = useSelector((state) => state.auth)
+  const [createOrUpdateUser] = useCreateOrUpdateUserMutation()
+  const [currentUser] = useCurrentUserMutation()
 
-  const { user } = useSelector((state)=>state.auth)
-  const { isAdmin = false } = user || { }
-
-  // const [userObject, setUserObject] = useState();
-
-    // useEffect(() => {
-    //   const getUser= async ()=>{
-    //     axios.get("http://localhost:5000/auth/login/success").then((res) => {
-    //         if (res.data) {
-    //             setUserObject(res.data);
-    //         }
-    //     })}
-    //     getUser()
-    // }, [])
-    
+  useLayoutEffect(() => {
+    if (user == null && authtoken == null && refreshToken == null) {
+      getRedirectResult(auth)
+        .then(async (result) => {
+          if (!result) return
+          const { user } = result
+          const idTokenResult = await user.getIdTokenResult()
+          const res = await createOrUpdateUser(idTokenResult.token).unwrap()
+          if (['deleted', 'inactive'].includes(res.status)) {
+            toast.error(`${res.email} hiện đang bị khóa `)
+            await signOut(auth)
+            dispatch(getUser(null))
+            dispatch(setAuthtokenCredential(null))
+            dispatch(setRefreshToken(null))
+            navigate('/')
+            return
+          } else {
+            dispatch(setRefreshToken(user.refreshToken))
+            dispatch(setAuthtokenCredential(idTokenResult.token))
+            dispatch(getUser(res))
+          }
+        })
+        .catch((err) => {
+          alert(err)
+          navigate('/', { replace: true })
+        })
+    } else if (authtoken) {
+      setSession(authtoken)
+    }
+  }, [authtoken, createOrUpdateUser, dispatch, navigate, refreshToken, user])
 
   useEffect(() => {
-    const initialize = async () => {
-      try {
-        const accessToken =
-          typeof window !== 'undefined'
-            ? localStorage.getItem('accessToken')
-            : ''
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          if (!user.emailVerified) throw new Error(`${user.email} hasn't verified yet!`)
+          const idTokenResult = await user.getIdTokenResult()
+          const res = await currentUser(idTokenResult.token).unwrap()
+          if (['deleted', 'inactive'].includes(res.status)) {
+            toast.error(`${res.email} hiện đang bị khóa `)
 
-        if (accessToken && isValidToken(accessToken)) {
-          const user = await getUserInfo(accessToken)
-          setSession(accessToken)
+            await signOut(auth)
+            dispatch(getUser(null))
+            dispatch(setAuthtokenCredential(null))
+            dispatch(setRefreshToken(null))
+            navigate('/')
+            return
 
-          dispatch(getUser(user))
-        } else {
-          dispatch(resetUser())
+          } else {
+            dispatch(setAuthtokenCredential(idTokenResult.token))
+            dispatch(setRefreshToken(user.refreshToken))
+            dispatch(getUser(res))
+          }
+        } catch (err) {
+          // TODO
+          alert(err)
         }
-      } catch (err) {
-        dispatch(resetUser())
       }
-    }
-    initialize()
-  }, [dispatch])
+    })
+    return () => unsubscribe()
+  }, [currentUser, dispatch,navigate])
+
   return (
-    <Router>
-      <div>
-        <Routes>
-          {isAdmin && routersAdmin.map((route,idx)=>{
+    <div>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        {user && user?.role === 'admin' ?
+          routersAdmin.map((route, idx) => {
             let Layout = LayoutAdmin
-            if(route.layout){
+            if (route.layout) {
               Layout = route.layout
-            }
-            else{
+            } else {
               Layout = Fragment
             }
             const Page = route.component
@@ -80,36 +110,10 @@ function App(){
                 }
               />
             )
-          })}
-          
-          {routerPublic.map((route,idx)=>{
-            let Layout = LayoutClient
-            if(route.layout){
-              Layout = route.layout
-            }
-            else{
-              Layout = Fragment
-            }
-            const Page = route.component
-            return (
-              <Route
-                key={idx}
-                path={route.path}
-                element={
-                  <Layout>
-                    <Page />
-                  </Layout>
-                }
-              />
-            )
-          })}
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='*' element={<Page404 />} />
-        </Routes>
-      </div>
+          }):(<Route path='*' element={<Page404 />}/>)}
+      </Routes>
       <ToastContainer />
-    </Router>
+    </div>
   )
 }
 export default App

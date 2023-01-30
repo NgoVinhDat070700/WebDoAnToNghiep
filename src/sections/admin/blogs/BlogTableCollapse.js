@@ -48,13 +48,13 @@ function BlogTableCollapse({ row, handleOpenModal, handleDeleteBlog  }) {
             <Table size='small' aria-label='purchases'>
               <TableBody>
               <TableRow>
-                  <TableCell>Category</TableCell>
+                  <TableCell>Loại</TableCell>
                   <TableCell>
                     {namecategory}
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Image</TableCell>
+                  <TableCell>Ảnh</TableCell>
                   <TableCell>
                     <Image 
                         sx={{
@@ -72,21 +72,21 @@ function BlogTableCollapse({ row, handleOpenModal, handleDeleteBlog  }) {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Description</TableCell>
+                  <TableCell>Mô tả</TableCell>
                   <TableCell>
                     <Typography noWrap>{desc}</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Action</TableCell>
+                  <TableCell>Hành động</TableCell>
                   <TableCell>
-                    <Tooltip title='Edit' onClick={handleOpenModal}>
+                    <Tooltip title='Sửa' onClick={handleOpenModal}>
                       <IconButton>
                         <Iconify icon={'akar-icons:edit'} />
                       </IconButton>
                     </Tooltip>
 
-                    <Tooltip title='Delete' onClick={handleDeleteBlog}>
+                    <Tooltip title='Xóa' onClick={handleDeleteBlog}>
                       <IconButton>
                         <Iconify icon={'ant-design:delete-filled'} />
                       </IconButton>

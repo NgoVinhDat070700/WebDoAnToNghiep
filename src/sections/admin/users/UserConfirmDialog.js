@@ -36,13 +36,13 @@ function UserConfirmDialog({ confirmDialogRef }) {
     try {
       const data = await deleteUser(user_id).unwrap()
       if (data?.success) {
-        toast.success("Delete Success!")
+        toast.success("Xóa thành công!")
         onCloseConfirm()
         return
       }
-      toast.error("Delete Failed!")
+      toast.error("Xóa thất bại!")
     } catch (error) {
-        toast.error("Delete Failed!")
+        toast.error("Xóa thất bại!")
     }
   }
 
@@ -65,14 +65,14 @@ function UserConfirmDialog({ confirmDialogRef }) {
                 color='inherit'
                 onClick={onCloseConfirm}
               >
-                Cancel
+                Thoát
               </Button>
               <Button
                 variant='contained'
                 color='error'
                 onClick={handleDeleteUser}
               >
-                Delete
+                Xóa
               </Button>
             </>
           }

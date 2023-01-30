@@ -29,7 +29,7 @@ function Blog() {
     },[dispatch])
 
     let [page, setPage] = useState(1)
-  const PER_PAGE = 3
+  const PER_PAGE = 4
 
   const count = Math.ceil(allNews.length / PER_PAGE)
   const _DATA = usePagination(allNews, PER_PAGE)

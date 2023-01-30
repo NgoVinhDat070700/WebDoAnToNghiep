@@ -85,7 +85,7 @@ function ProductTable(props, ref) {
   )
   return (
     <Card>
-      <Search filterName={filterName} onFilterName={handleFilterByName} placeholder='Search products...' />
+      <Search filterName={filterName} onFilterName={handleFilterByName} placeholder='Tìm kiếm sản phẩm...' />
       <TableBasic
         columns={columns}
         rows={allProduct}

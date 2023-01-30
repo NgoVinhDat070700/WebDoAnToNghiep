@@ -69,7 +69,7 @@ export default function SiderBar_Admin({ isOpenSidebar, onCloseSidebar }) {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
-            Hello, {username}
+            Chào bạn, {username}
           </AccountStyle>
         </Link>
       </Box>
