@@ -10,6 +10,7 @@ import UploadImage from '@/components/UploadImage'
 import { LoadingButton } from '@mui/lab'
 import { toast } from 'react-toastify'
 import { useGetListCategoryQuery } from '@/sections/admin/categories/CategorySlice'
+import useLocales from '@/hooks/useLocales'
 
 const defaultValues = {
   nameproduct: '',
@@ -24,23 +25,23 @@ ProductForm.propTypes = {
   onClose: PropTypes.func,
   isEdit: PropTypes.bool,
   createProduct: PropTypes.func,
-  updateProduct: PropTypes.func
+  updateProduct: PropTypes.func,
 }
 function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProduct }) {
-
+  const { translate } = useLocales()
   const {
     nameproduct = '',
     price = 0,
     image = '',
     category_id = {},
     desc = '',
-    _id: productId = ''
+    _id: productId = '',
   } = detailProduct || {}
 
   const { namecategory = '', _id = '' } = category_id || {}
   const methods = useForm({ defaultValues })
   const { setValue, handleSubmit, watch } = methods
-  
+
   const inputPrice = watch('price')
   useEffect(() => {
     if (!inputPrice) return
@@ -57,7 +58,7 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
   }, [inputPrice, setValue])
 
   useEffect(() => {
-    if(!productId) return
+    if (!productId) return
 
     setValue('nameproduct', nameproduct)
     setValue('price', price)
@@ -76,23 +77,21 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
       })),
     [categories]
   )
-  
-  const onChangePrice = (e) =>{
+
+  const onChangePrice = (e) => {
     const value = e.target.value
     setValue('price', value || '')
   }
   const onSubmit = async (data) => {
-    const {category_id = {}} = data
-    const {id = ''} = category_id || {}
-    const dataForm = {...data, category_id:id}
+    const { category_id = {} } = data
+    const { id = '' } = category_id || {}
+    const dataForm = { ...data, category_id: id }
     try {
-      if(isEdit && productId){
-        
-        await updateProduct({productId, dataForm}).unwrap()
+      if (isEdit && productId) {
+        await updateProduct({ productId, dataForm }).unwrap()
         onClose()
         toast.success('Sửa thành công!')
-      }
-      else {
+      } else {
         await createProduct(dataForm).unwrap()
         onClose()
         toast.success('Thêm thành công!')
@@ -106,19 +105,18 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
       <Grid container spacing={2} px={3} py={3}>
         <Grid item xs={12} md={12}>
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Tên sản phẩm</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>{translate('page.product.name_form')}</Typography>
             <RHFTextField name='nameproduct' />
           </Stack>
 
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Loại</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>{translate('page.product.cate_form')}</Typography>
             <RHFAutocomplete
               name='category_id'
               options={listCategoryOption}
               AutocompleteProps={{
                 size: 'small',
-                isOptionEqualToValue: (option, value) =>
-                  option._id === value._id,
+                isOptionEqualToValue: (option, value) => option._id === value._id,
                 renderOption: (props, option) => {
                   // fix error duplicate key
                   const newProps = {
@@ -140,17 +138,17 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
           </Stack>
 
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Giá</Typography>
-            <RHFTextField name='price' onChange={onChangePrice}/>
+            <Typography sx={{ fontWeight: 'bold' }}>{translate('page.product.price_form')}</Typography>
+            <RHFTextField name='price' onChange={onChangePrice} />
           </Stack>
 
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Ảnh</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>{translate('page.product.image_form')}</Typography>
             <UploadImage label='File Upload' name='image' setValue={setValue} />
           </Stack>
 
           <Stack spacing={1}>
-            <Typography sx={{ fontWeight: 'bold' }}>Mô tả</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>{translate('page.product.desc_form')}</Typography>
             <RHFTextField multiline rows={3} name='desc' />
           </Stack>
         </Grid>
@@ -158,16 +156,12 @@ function ProductForm({ detailProduct, onClose, isEdit, createProduct, updateProd
 
       <Grid item xs={12} mt={3}>
         <DialogActions>
-          <LoadingButton
-            type='submit'
-            variant='contained'
-           
-          >
-            Lưu
+          <LoadingButton type='submit' variant='contained'>
+            {translate('page.product.save')}
           </LoadingButton>
 
-          <Button variant='outlined' color='inherit' onClick={onClose} >
-            Thoát
+          <Button variant='outlined' color='inherit' onClick={onClose}>
+            {translate('page.product.cancel')}
           </Button>
         </DialogActions>
       </Grid>

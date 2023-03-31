@@ -14,7 +14,6 @@ import { useCreateOrUpdateUserMutation, useCurrentUserMutation } from './redux/a
 import { auth } from './config/firebase-config'
 import { toast } from 'react-toastify'
 import { setSession } from './utils/jwt'
-import Page404 from './pages/Page404'
 
 function App() {
   let navigate = useNavigate()
@@ -70,7 +69,6 @@ function App() {
             dispatch(setRefreshToken(null))
             navigate('/')
             return
-
           } else {
             dispatch(setAuthtokenCredential(idTokenResult.token))
             dispatch(setRefreshToken(user.refreshToken))
@@ -83,14 +81,15 @@ function App() {
       }
     })
     return () => unsubscribe()
-  }, [currentUser, dispatch,navigate])
+  }, [currentUser, dispatch, navigate])
 
   return (
     <div>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        {user && user?.role === 'admin' ?
+        {user &&
+          user?.role === 'admin' &&
           routersAdmin.map((route, idx) => {
             let Layout = LayoutAdmin
             if (route.layout) {
@@ -110,7 +109,7 @@ function App() {
                 }
               />
             )
-          }):(<Route path='*' element={<Page404 />}/>)}
+          })}
       </Routes>
       <ToastContainer />
     </div>

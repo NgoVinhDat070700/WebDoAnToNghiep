@@ -16,19 +16,18 @@ import { useGetListProductsQuery } from '@/redux/api/apiSlice'
 import { useGetListUserQuery } from '../users/UserSlice'
 import AreaChart from './ReportAreaChart'
 import { useGetListOrderQuery } from '../orders/orderSlice'
+import useLocales from '@/hooks/useLocales'
 
 // project import
 
 // avatar style
 const findByDatetimeId = (datetime = '', arr = []) => (datetime ? arr.find((item) => item._id === datetime) : null)
 
-export const getTotalByDatakey = (arr = [], datakey) => {
-  return arr.reduce((currentValue, nextValue) => {
-    return currentValue + nextValue[datakey]
-  }, 0)
-}
+export const getTotalByDatakey = (arr = [], datakey) =>
+  arr.reduce((currentValue, nextValue) => currentValue + nextValue[datakey], 0)
 
 const DashboardDefault = () => {
+  const { translate } = useLocales()
   const [rangeDateUser, setRangeDateUser] = useState([
     moment().startOf('week').format(dateFormat),
     moment().endOf('week').format(dateFormat),
@@ -121,9 +120,17 @@ const DashboardDefault = () => {
   const dataColumnGroupedChart = (initdata = []) => {
     let data = []
     initdata.map((item) => {
-      data.push({ date: item._id, type: 'Tổng giá sản phẩm', value: item.orderItemsPrice })
-      data.push({ date: item._id, type: 'Phí vận chuyển', value: item.orderShippingPrice })
-      data.push({ date: item._id, type: 'Tổng giá', value: item.orderTotalPrice })
+      data.push({
+        date: item._id,
+        type: translate('page.dashboard.chart_total_price_product'),
+        value: item.orderItemsPrice,
+      })
+      data.push({
+        date: item._id,
+        type: translate('page.dashboard.chart_total_shipping'),
+        value: item.orderShippingPrice,
+      })
+      data.push({ date: item._id, type: translate('page.dashboard.chart_total_price'), value: item.orderTotalPrice })
     })
     return data.flat()
   }
@@ -145,16 +152,24 @@ const DashboardDefault = () => {
     <Grid>
       <Grid container columnSpacing={3}>
         <Grid item xs={12}>
-          <Typography variant='h5'>Bảng điều khiển</Typography>
+          <Typography variant='h5'>{translate('page.dashboard.title')}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
-          <AnalyticEcommerce title='Số lượng mặt hàng' count={totalProduct} icon={<CardTravel />} />
+          <AnalyticEcommerce
+            title={translate('page.dashboard.count_product')}
+            count={totalProduct}
+            icon={<CardTravel />}
+          />
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
-          <AnalyticEcommerce title='Số lượng người dùng app' count={countUser} icon={<People />} />
+          <AnalyticEcommerce title={translate('page.dashboard.count_member')} count={countUser} icon={<People />} />
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
-          <AnalyticEcommerce title='Tổng doanh thu cửa hàng VNĐ' count={fCurrency(totalPrice)} icon={<AssignmentTurnedIn />} />
+          <AnalyticEcommerce
+            title={translate('page.dashboard.total_revenue')}
+            count={fCurrency(totalPrice)}
+            icon={<AssignmentTurnedIn />}
+          />
         </Grid>
       </Grid>
 
@@ -162,7 +177,10 @@ const DashboardDefault = () => {
       <Grid xs={12}>
         <Grid container alignItems='center' justifyContent='space-between'>
           <Grid item>
-            <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginTop: 2 }}><Timeline color='secondary' />Thống kê doanh thu</Typography>
+            <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginTop: 2 }}>
+              <Timeline color='secondary' />
+              {translate('page.dashboard.revenue_statistics')}
+            </Typography>
           </Grid>
           <Grid item={true}>
             <RangePicker value={rangeDateIncome} onChange={onChangeRangeDateIncome} />
@@ -182,8 +200,11 @@ const DashboardDefault = () => {
 
       <Grid container columnSpacing={3} sx={{ marginTop: 2 }}>
         <Grid item xs={8}>
-          <Grid sx={{ height: 50}}>
-            <Typography sx={{ fontSize: 16, fontWeight: 'bold' }}><Timeline color='secondary' />Thống kê người dùng đã đăng kí</Typography>
+          <Grid sx={{ height: 50 }}>
+            <Typography sx={{ fontSize: 16, fontWeight: 'bold' }}>
+              <Timeline color='secondary' />
+              {translate('page.dashboard.user_register')}
+            </Typography>
             <RangePicker value={rangeDateUser} onChange={onChangeRangeDateUser} />
           </Grid>
           <MainCard sx={{ mt: 2 }} content={false}>
@@ -192,12 +213,14 @@ const DashboardDefault = () => {
             </Box>
           </MainCard>
         </Grid>
-        
+
         <Grid item xs={4}>
           <Grid alignItems='center' justifyContent='space-between' sx={{ marginLeft: 1 }}>
             <Grid item sx={{ height: 50, display: 'flex', alignItems: 'center' }}>
               <DonutLarge color='secondary' />
-              <Typography sx={{ fontSize: 16, fontWeight: 'bold' }}>Thống kê đơn hàng</Typography>
+              <Typography sx={{ fontSize: 16, fontWeight: 'bold' }}>
+                {translate('page.dashboard.order_statistics')}
+              </Typography>
             </Grid>
           </Grid>
           <MainCard sx={{ mt: 2 }} content={false}>
